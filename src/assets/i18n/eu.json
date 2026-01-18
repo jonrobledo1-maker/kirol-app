@@ -1,0 +1,61 @@
+{
+  "LOGIN": {
+    "TITLE": "Kirol App",
+    "SUBTITLE": "Kirol ekitaldien kudeaketa",
+    "EMAIL_LABEL": "Posta elektronikoa",
+    "PASS_LABEL": "Pasahitza",
+    "NAME_LABEL": "Izena eta Abizena",
+    "BTN_LOGIN": "Saioa Hasi",
+    "BTN_REGISTER": "Erregistratu",
+    "BTN_GOOGLE": "Google-ekin Sartu",
+    "OR": "— EDO —"
+  },
+  "HOME": {
+    "TITLE": "Kirol Agenda",
+    "BTN_CREATE": "Ekitaldi Berria Sortu",
+    "EMPTY_LIST": "Ez dago ekitaldirik. Sortu lehenengoa!",
+    "ADMIN_PANEL": "Administratzaile Panela",
+    "BTN_ADD_SPORT": "Kirol Berria Zehaztu",
+    "MANAGE_SPORTS": "KIROLAK KUDEATU",
+    "ORGANIZER": "Antolatzailea"
+  },
+  "EVENT_FORM": {
+    "TITLE_NEW": "Ekitaldi Berria",
+    "LABEL_TITLE": "Planaren izenburua",
+    "LABEL_SPORT": "Kirola",
+    "LABEL_LOCATION": "Kokalekua",
+    "LABEL_DATE": "Data",
+    "BTN_CANCEL": "Utzi",
+    "BTN_CREATE": "Sortu"
+  },
+  "DETAIL": {
+    "SPORT": "Kirola",
+    "LOCATION": "Kokalekua",
+    "DATE": "Data",
+    "ORGANIZER": "Antolatzailea",
+    "PLAYERS": "Jokalariak",
+    "BTN_JOIN": "Izena eman",
+    "ALREADY_JOINED": "Izena emanda zaude",
+    "EXPENSES_TITLE": "Gastuak",
+    "ADD_EXPENSE_TITLE": "Gastua Gehitu",
+    "PLACEHOLDER_CONCEPT": "Kontzeptua",
+    "MSG_NOT_JOINED": "Ekitaldian izena eman behar duzu gastuak gehitzeko.",
+    "PER_PERSON": "pertsonako",
+    "TOTAL_ACC": "Guztira",
+    "ACT_TITLE": "Partiduaren Akta",
+    "BTN_EDIT_RESULT": "Emaitza Editatu",
+    "BTN_ADD_RESULT": "Emaitza Gehitu",
+    "BTN_SAVE_ACT": "Gorde",
+    "RULES": "Arauak",
+    "PAID_BY": "Ordaintzailea:",
+    "LOADING": "Ekitaldia kargatzen..."
+  },
+  "STATS": {
+    "TITLE_GLOBAL": "Orokorra (Admin)",
+    "TITLE_PERSONAL": "Nire Estatistikak",
+    "TOTAL_EVENTS": "Ekitaldiak Guztira",
+    "FAV_SPORT": "Kirol Gogokoena",
+    "THIS_MONTH": "Hilabete Honetan",
+    "LOADING": "Kargatzen..."
+  }
+}

@@ -1,0 +1,104 @@
+<div class="agenda-container">
+  <header>
+    <h1>{{ 'HOME.TITLE' | translate }}</h1>
+    <div style="display: flex; align-items: center;">
+      <!-- SELECTOR DE IDIOMA DINÁMICO -->
+      <div style="margin-right: 10px; border-right: 1px solid #ccc; padding-right: 5px;">
+
+        <button mat-button (click)="switchLanguage('es')"
+                style="min-width: 35px; padding: 0; font-size: 0.9rem;"
+                [style.color]="translate.currentLang === 'es' ? '#3f51b5' : 'black'"
+                [style.fontWeight]="translate.currentLang === 'es' ? 'bold' : 'normal'">
+          ES
+        </button>
+
+        <button mat-button (click)="switchLanguage('eu')"
+                style="min-width: 35px; padding: 0; font-size: 0.9rem;"
+                [style.color]="translate.currentLang === 'eu' ? '#3f51b5' : 'black'"
+                [style.fontWeight]="translate.currentLang === 'eu' ? 'bold' : 'normal'">
+          EU
+        </button>
+
+      </div>
+
+    <button mat-icon-button (click)="goToStats()" style="margin-right: 10px;">
+      <mat-icon>bar_chart</mat-icon>
+    </button>
+    <button mat-icon-button color="warn" (click)="logout()">
+      <mat-icon>logout</mat-icon>
+    </button>
+    </div>
+  </header>
+
+  <!-- ZONA ADMIN -->
+  <div *ngIf="isAdmin" style="background: #fff3e0; padding: 15px; margin-bottom: 20px; border-radius: 8px; border: 1px solid #ffcc80;">
+
+    <p style="margin: 0 0 15px 0; font-weight: bold; color: #e65100; font-size: 1.1rem;">
+      👑 {{ 'HOME.ADMIN_PANEL' | translate }}
+    </p>
+
+    <!-- Botón añadir -->
+    <button mat-stroked-button color="accent" (click)="addSport()" style="width: 100%; margin-bottom: 15px; background: white;">
+      <mat-icon>post_add</mat-icon> {{ 'HOME.BTN_ADD_SPORT' | translate }}
+    </button>
+
+    <!-- LISTA DE GESTIÓN DE DEPORTES -->
+    <div style="background: white; border-radius: 4px; padding: 10px;">
+      <p style="margin: 0 0 5px 0; font-size: 0.8rem; color: #666; font-weight: bold;">{{ 'HOME.MANAGE_SPORTS' | translate }}:</p>
+
+      <div *ngFor="let s of sports$ | async"
+           style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #eee;">
+
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <mat-icon style="font-size: 20px; height: 20px; width: 20px; color: #555;">{{ s.icon }}</mat-icon>
+          <span>{{ s.name }}</span>
+        </div>
+
+        <!-- Botón Borrar (Solo mostramos la papelera si NO es uno de los fijos) -->
+        <button mat-icon-button color="warn"
+                (click)="deleteSport(s)"
+                *ngIf="s.id !== 'pala' && s.id !== 'futbol' && s.id !== 'padel' && s.id !== 'basket' && s.id !== 'monte'"
+                style="height: 30px; width: 30px; line-height: 30px;">
+          <mat-icon style="font-size: 18px;">delete</mat-icon>
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Botón para Crear -->
+  <div style="margin: 20px 0; text-align: center;">
+    <button mat-raised-button color="primary" (click)="openCreateEventDialog()">
+      <mat-icon>add</mat-icon> {{ 'HOME.BTN_CREATE' | translate }}
+    </button>
+  </div>
+
+  <!-- Lista de Eventos -->
+  <div class="events-list">
+    <!-- El *ngFor recorre la lista de eventos de Firebase -->
+    <mat-card
+      *ngFor="let event of events$ | async"
+      class="event-card"
+      (click)="goToEvent(event)">
+
+      <mat-card-header>
+        <mat-icon mat-card-avatar>sports_soccer</mat-icon>
+        <mat-card-title>{{ event.title }}</mat-card-title>
+        <mat-card-subtitle>{{ event.sport }}</mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content>
+        <p>📍 {{ event.location }}</p>
+        <!-- Formateamos la fecha para que se lea bien -->
+        <p>📅 {{ event.date.seconds * 1000 | date:'dd/MM/yyyy HH:mm' }}</p>
+        <p style="font-size: 0.8rem; color: #666;">{{ 'HOME.ORGANIZER' | translate }}: {{ event.createdBy }}</p>
+      </mat-card-content>
+
+    </mat-card>
+
+    <!-- Mensaje si la lista está vacía -->
+    <p *ngIf="(events$ | async)?.length === 0" style="text-align: center; color: #999; margin-top: 20px;">
+      {{ 'HOME.EMPTY_LIST' | translate }}
+    </p>
+  </div>
+</div>

@@ -1,0 +1,40 @@
+<h2 mat-dialog-title>{{ 'EVENT_FORM.TITLE_NEW' | translate }}</h2>
+
+<mat-dialog-content style="display: flex; flex-direction: column; gap: 10px; min-width: 300px; padding-top: 20px;">
+
+  <!-- Título -->
+  <mat-form-field appearance="outline">
+    <mat-label>{{ 'EVENT_FORM.LABEL_TITLE' | translate }}</mat-label>
+    <input matInput [(ngModel)]="formData.title" placeholder="Ej: Partido Pala">
+  </mat-form-field>
+
+  <!-- Deporte (Dropdown) -->
+  <mat-form-field appearance="outline">
+    <mat-label>{{ 'EVENT_FORM.LABEL_SPORT' | translate }}</mat-label>
+    <mat-select [(ngModel)]="formData.sport">
+      <mat-option *ngFor="let s of sports$ | async" [value]="s.name">
+        <mat-icon>{{ s.icon }}</mat-icon> {{ s.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <!-- Ubicación -->
+  <mat-form-field appearance="outline">
+    <mat-label>{{ 'EVENT_FORM.LABEL_LOCATION' | translate }}</mat-label>
+    <input matInput [(ngModel)]="formData.location" placeholder="Ej: Frontón municipal">
+  </mat-form-field>
+
+  <!-- Fecha -->
+  <mat-form-field appearance="outline">
+    <mat-label>{{ 'EVENT_FORM.LABEL_DATE' | translate }}</mat-label>
+    <input matInput [matDatepicker]="picker" [(ngModel)]="formData.date">
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="close()">{{ 'EVENT_FORM.BTN_CANCEL' | translate }}</button>
+  <button mat-raised-button color="primary" (click)="save()">{{ 'EVENT_FORM.BTN_CREATE' | translate }}</button>
+</mat-dialog-actions>

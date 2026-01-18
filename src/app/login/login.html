@@ -1,0 +1,70 @@
+<!-- SELECTOR DE IDIOMA FLOTANTE (Esquina superior derecha) -->
+<div style="position: absolute; top: 20px; right: 20px; z-index: 10;">
+
+  <!-- Botón ES -->
+  <button mat-button (click)="switchLanguage('es')"
+          [style.color]="translate.currentLang === 'es' ? '#3f51b5' : 'black'"
+          [style.fontWeight]="translate.currentLang === 'es' ? 'bold' : 'normal'">
+    ES
+  </button>
+
+  <span style="color: #ccc;">|</span>
+
+  <!-- Botón EU -->
+  <button mat-button (click)="switchLanguage('eu')"
+          [style.color]="translate.currentLang === 'eu' ? '#3f51b5' : 'black'"
+          [style.fontWeight]="translate.currentLang === 'eu' ? 'bold' : 'normal'">
+    EU
+  </button>
+
+</div>
+
+
+
+<div class="login-container">
+  <mat-card class="login-card">
+    <mat-card-header style="justify-content: center; margin-bottom: 20px;">
+      <mat-card-title style="color: #3f51b5; font-size: 2rem;">Kirol App</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content>
+      <p style="text-align: center; color: #666;">{{ 'LOGIN.SUBTITLE' | translate }}</p>
+
+      <!-- Campos de texto -->
+      <form style="display: flex; flex-direction: column; gap: 10px;">
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'LOGIN.NAME_LABEL' | translate }}</mat-label>
+          <input matInput [(ngModel)]="displayName" name="name" placeholder="Ej: Jon Robledo">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'LOGIN.EMAIL_LABEL' | translate }}</mat-label>
+          <input matInput [(ngModel)]="email" name="email" placeholder="ejemplo@correo.com">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>{{ 'LOGIN.PASS_LABEL' | translate }}</mat-label>
+          <input matInput [(ngModel)]="password" name="password" type="password">
+        </mat-form-field>
+      </form>
+
+      <!-- Botones de Acción -->
+      <div style="display: flex; gap: 10px; margin-top: 20px;">
+        <button mat-raised-button color="primary" (click)="loginWithEmail()" style="flex: 1;">
+          {{ 'LOGIN.BTN_LOGIN' | translate }}
+        </button>
+        <button mat-stroked-button color="primary" (click)="registerWithEmail()" style="flex: 1;">
+          {{ 'LOGIN.BTN_REGISTER' | translate }}
+        </button>
+      </div>
+
+      <div style="text-align: center; margin: 20px 0; color: #aaa;">— O —</div>
+
+      <!-- Botón Google -->
+      <button mat-flat-button style="width: 100%; background-color: #db4437; color: white;" (click)="loginWithGoogle()">
+        {{ 'LOGIN.BTN_GOOGLE' | translate }}
+      </button>
+
+    </mat-card-content>
+  </mat-card>
+</div>

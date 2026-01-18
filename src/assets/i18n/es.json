@@ -1,0 +1,61 @@
+{
+  "LOGIN": {
+    "TITLE": "Kirol App",
+    "SUBTITLE": "Gestión de eventos deportivos",
+    "EMAIL_LABEL": "Correo electrónico",
+    "PASS_LABEL": "Contraseña",
+    "NAME_LABEL": "Nombre y Apellido",
+    "BTN_LOGIN": "Iniciar Sesión",
+    "BTN_REGISTER": "Registrarse",
+    "BTN_GOOGLE": "Entrar con Google",
+    "OR": "— O —"
+  },
+  "HOME": {
+    "TITLE": "Agenda Deportiva",
+    "BTN_CREATE": "Crear Nuevo Evento",
+    "EMPTY_LIST": "No hay eventos próximos. ¡Crea el primero!",
+    "ADMIN_PANEL": "Panel de Administrador",
+    "BTN_ADD_SPORT": "Definir Nuevo Deporte",
+    "MANAGE_SPORTS": "GESTIONAR DEPORTES",
+    "ORGANIZER": "Organiza"
+  },
+  "EVENT_FORM": {
+    "TITLE_NEW": "Nuevo Evento",
+    "LABEL_TITLE": "Título del plan",
+    "LABEL_SPORT": "Deporte",
+    "LABEL_LOCATION": "Ubicación",
+    "LABEL_DATE": "Fecha",
+    "BTN_CANCEL": "Cancelar",
+    "BTN_CREATE": "Crear"
+  },
+  "DETAIL": {
+    "SPORT": "Deporte",
+    "LOCATION": "Ubicación",
+    "DATE": "Fecha",
+    "ORGANIZER": "Organizado por",
+    "PLAYERS": "Jugadores",
+    "BTN_JOIN": "Unirme",
+    "ALREADY_JOINED": "Ya estás apuntado",
+    "EXPENSES_TITLE": "Gastos Compartidos",
+    "ADD_EXPENSE_TITLE": "Añadir Gasto",
+    "PLACEHOLDER_CONCEPT": "Concepto",
+    "MSG_NOT_JOINED": "Debes unirte al evento para poder añadir gastos.",
+    "PER_PERSON": "por persona",
+    "TOTAL_ACC": "Total acumulado",
+    "ACT_TITLE": "Acta del Partido",
+    "BTN_EDIT_RESULT": "Editar Marcador",
+    "BTN_ADD_RESULT": "Añadir Resultado",
+    "BTN_SAVE_ACT": "Guardar Acta",
+    "RULES": "Reglas",
+    "PAID_BY": "Pagado por",
+    "LOADING": "Cargando evento..."
+  },
+  "STATS": {
+    "TITLE_GLOBAL": "Globales (Admin)",
+    "TITLE_PERSONAL": "Mis Estadísticas",
+    "TOTAL_EVENTS": "Total Eventos",
+    "FAV_SPORT": "Deporte Favorito",
+    "THIS_MONTH": "Este Mes",
+    "LOADING": "Cargando..."
+  }
+}

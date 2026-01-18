@@ -1,0 +1,147 @@
+<div class="detail-container" *ngIf="event$ | async as event; else loading">
+
+  <header style="display: flex; align-items: center; justify-content: space-between;">
+    <div style="display: flex; align-items: center; gap: 10px;">
+      <button mat-icon-button (click)="goBack()">
+        <mat-icon>arrow_back</mat-icon>
+      </button>
+      <!-- Usamos una clase para que si el título es largo no rompa el diseño -->
+      <h1 style="margin: 0; font-size: 1.5rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 200px;">
+        {{ event.title }}
+      </h1>
+    </div>
+
+    <!-- BOTÓN BORRAR (Solo visible si canDelete es true) -->
+    <button *ngIf="canDelete" mat-icon-button (click)="deleteEvent()" style="color: #f44336;">
+      <mat-icon>delete_forever</mat-icon>
+    </button>
+  </header>
+
+  <mat-card class="info-card">
+    <mat-card-content>
+      <p><strong>🏆 {{ 'DETAIL.SPORT' | translate }}:</strong> {{ event.sport }}</p>
+      <p><strong>📍 {{ 'DETAIL.LOCATION' | translate }}:</strong> {{ event.location }}</p>
+      <p><strong>📅 {{ 'DETAIL.DATE' | translate }}:</strong>
+        {{ event.date?.toDate ? (event.date.toDate() | date:'medium') : (event.date | date:'medium') }}
+      </p>
+    </mat-card-content>
+  </mat-card>
+
+  <!-- SECCIÓN REGLAS Y RESULTADOS -->
+  <mat-card style="margin-top: 15px; border-left: 5px solid #ff9800;">
+    <mat-card-header>
+      <mat-card-title style="font-size: 1.1rem;">📝 {{ 'DETAIL.ACT_TITLE' | translate }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+
+      <!-- Reglas (Cargadas de la configuración) -->
+      <p style="color: #666; font-style: italic; margin-bottom: 10px;">
+        📜 {{ 'DETAIL.RULES' | translate }}: {{ event.sportRules || 'Estándar' }}
+      </p>
+
+      <!-- Si ya hay resultado, lo mostramos -->
+      <div *ngIf="event.result" style="background: #eee; padding: 10px; border-radius: 4px; text-align: center;">
+        <h2 style="margin: 0; color: #333;">{{ event.result }}</h2>
+        <p *ngIf="event.incidents" style="margin: 5px 0 0 0; color: #d32f2f;">
+          ⚠️ {{ event.incidents }}
+        </p>
+      </div>
+
+      <!-- Botón para editar resultado -->
+      <div style="margin-top: 10px; text-align: right;">
+        <button mat-stroked-button (click)="showResultForm = !showResultForm">
+          {{ (event.result ? 'DETAIL.BTN_EDIT_RESULT' : 'DETAIL.BTN_ADD_RESULT') | translate }}
+        </button>
+      </div>
+
+      <!-- Formulario Desplegable -->
+      <div *ngIf="showResultForm" style="margin-top: 15px; background: #fafafa; padding: 10px;">
+        <input type="text" [(ngModel)]="resultInput" placeholder="Ej: 22 - 18"
+               style="width: 100%; padding: 8px; margin-bottom: 5px;">
+
+        <textarea [(ngModel)]="incidentsInput" placeholder="Incidencias (lesiones, material roto...)"
+                  style="width: 100%; padding: 8px; height: 60px;"></textarea>
+
+        <button mat-raised-button color="primary" (click)="saveResult()" style="width: 100%; margin-top: 5px;">
+          {{ 'DETAIL.BTN_SAVE_ACT' | translate }}
+        </button>
+      </div>
+
+    </mat-card-content>
+  </mat-card>
+
+  <!-- JUGADORES Y UNIRSE -->
+  <div style="margin: 20px 0;">
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <h3>{{ 'DETAIL.PLAYERS' | translate }} ({{ event.participants?.length || 0 }})</h3>
+
+      <!-- Botón Unirse (Solo si NO estás unido, usando el summary$) -->
+      <button *ngIf="(summary$ | async)?.isJoined === false"
+              mat-stroked-button color="primary"
+              (click)="joinEvent()">
+        <mat-icon>person_add</mat-icon> {{ 'DETAIL.BTN_JOIN' | translate }}
+      </button>
+
+      <span *ngIf="(summary$ | async)?.isJoined" style="color: green; font-weight: bold;">
+        ✅ {{ 'DETAIL.ALREADY_JOINED' | translate }}
+      </span>
+    </div>
+
+    <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px;">
+      <span *ngFor="let player of event.participants"
+            style="background: #e0e0e0; padding: 5px 10px; border-radius: 15px; font-size: 0.9rem;">
+        {{ player.name }}
+      </span>
+    </div>
+  </div>
+
+  <hr>
+
+  <!-- SECCIÓN GASTOS -->
+  <div *ngIf="summary$ | async as summary">
+
+    <!-- REPARTO DE GASTO-->
+    <mat-card style="background-color: #e8f5e9; margin-bottom: 20px;">
+      <mat-card-content style="text-align: center;">
+        <h2 style="margin: 0; color: #2e7d32;">{{ summary.perPerson | number:'1.2-2' }} €</h2>
+        <p style="margin: 0; font-size: 0.9rem; color: #555;">{{ 'DETAIL.PER_PERSON' | translate }}</p>
+        <p style="margin-top: 5px; font-size: 0.8rem;">({{ 'DETAIL.TOTAL_ACC' | translate }}: {{ summary.total | number:'1.2-2' }} €)</p>
+      </mat-card-content>
+    </mat-card>
+
+    <!-- FORMULARIO (Solo visible si estás unido) -->
+    <h3 style="color: #3f51b5;">💸 {{ 'DETAIL.ADD_EXPENSE_TITLE' | translate }}</h3>
+
+    <div *ngIf="summary.isJoined; else notJoinedMessage" class="expense-form">
+      <input type="text" placeholder="Concepto" [(ngModel)]="newExpenseDesc">
+      <input type="number" placeholder="€" [(ngModel)]="newExpenseAmount">
+      <button mat-mini-fab color="primary" (click)="addExpense()">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+
+    <!-- Mensaje si no estás unido -->
+    <ng-template #notJoinedMessage>
+      <p style="color: #666; font-style: italic; text-align: center; margin-bottom: 20px;">
+        {{ 'DETAIL.MSG_NOT_JOINED' | translate }}.
+      </p>
+    </ng-template>
+
+  </div>
+
+  <!-- LISTA DE GASTOS -->
+  <mat-list>
+    <mat-list-item *ngFor="let expense of expenses$ | async" style="border-bottom: 1px solid #eee;">
+      <mat-icon matListItemIcon style="color: #4caf50;">payments</mat-icon>
+      <div matListItemTitle>{{ expense.description }}</div>
+      <div matListItemLine>
+        <strong>{{ expense.amount }}€</strong> - {{ 'DETAIL.PAID_BY' | translate }} {{ expense.paidBy }}
+      </div>
+    </mat-list-item>
+  </mat-list>
+
+</div>
+
+<ng-template #loading>
+  <div style="text-align: center; padding: 50px;">{{ 'DETAIL.LOADING' | translate }}</div>
+</ng-template>

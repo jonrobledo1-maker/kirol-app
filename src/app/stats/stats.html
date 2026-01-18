@@ -1,0 +1,47 @@
+<div class="stats-container">
+  <header>
+    <button mat-icon-button (click)="goBack()">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <!-- SI HAY DATOS: Traduce el título que viene del TS -->
+    <h1 *ngIf="stats$ | async as stats; else loadingTitle">
+      {{ stats.title | translate }}
+    </h1>
+    <!-- SI ESTÁ CARGANDO: Muestra el texto de carga -->
+    <ng-template #loadingTitle>
+      <h1>{{ 'STATS.LOADING' | translate }}</h1>
+    </ng-template>
+  </header>
+
+  <!-- Solo se muestra cuando los datos han cargado -->
+  <div *ngIf="stats$ | async as stats" class="dashboard-grid">
+
+    <!-- Tarjeta 1: Total -->
+    <mat-card class="stat-card blue">
+      <mat-card-header>
+        <mat-card-subtitle>{{ 'STATS.TOTAL_EVENTS' | translate }}</mat-card-subtitle>
+        <mat-card-title>{{ stats.total }}</mat-card-title>
+      </mat-card-header>
+      <mat-icon>history</mat-icon>
+    </mat-card>
+
+    <!-- Tarjeta 2: Favorito -->
+    <mat-card class="stat-card green">
+      <mat-card-header>
+        <mat-card-subtitle>{{ 'STATS.FAV_SPORT' | translate }}</mat-card-subtitle>
+        <mat-card-title>{{ stats.favSport }}</mat-card-title>
+      </mat-card-header>
+      <mat-icon>emoji_events</mat-icon>
+    </mat-card>
+
+    <!-- Tarjeta 3: Mes Actual -->
+    <mat-card class="stat-card orange">
+      <mat-card-header>
+        <mat-card-subtitle>{{ 'STATS.THIS_MONTH' | translate }}</mat-card-subtitle>
+        <mat-card-title>{{ stats.thisMonth }}</mat-card-title>
+      </mat-card-header>
+      <mat-icon>calendar_today</mat-icon>
+    </mat-card>
+
+  </div>
+</div>
